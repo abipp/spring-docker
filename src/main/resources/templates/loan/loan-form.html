@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body">
+
+<nav th:replace="~{main-layout :: navigator}"></nav>
+
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+
+<main>
+    <form th:action="@{/loan/upsert}" method="post" th:object="${loans}" class="upsert-form">
+        <input th:field="*{id}" type="hidden">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label>Customer* :</label>
+                </td>
+                <td>
+                    <select th:field="*{customerNumber}">
+                        <option th:value=null>No Specific Customer</option>
+                        <option th:each="dropdownValue : ${dropdownCustomer}"
+                                th:value="${dropdownValue.id}" th:text="${dropdownValue.fullName}"></option>
+                    </select>
+                    <div class="field-validation-error" th:errors="*{customerNumber}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label> Book* :</label>
+                </td>
+                <td>
+                    <select th:field="*{bookCode}">
+                        <option th:value=null>No Specific Book</option>
+                        <option th:each="dropdownValue : ${dropdownTitle}"
+                                th:value="${dropdownValue.id}" th:text="${dropdownValue.title}"></option>
+                    </select>
+                    <div class="field-validation-error" th:errors="*{bookCode}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Loan Date* :</label>
+                </td>
+                <td>
+                    <input type="date" name="loanDate" th:field="*{loanDate}">
+                    <div class="field-validation-error" th:errors="*{loanDate}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="textarea-label">Note :</label>
+                </td>
+                <td>
+                    <textarea th:field="*{note}"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="blue-button">Save</button>
+        <a th:href="@{/loan/index}" class="blue-button create-button">Close</a>
+    </form>
+</main>
+
+
+<footer th:replace="~{main-layout :: footer}"></footer>
+
+</body>
+</html>

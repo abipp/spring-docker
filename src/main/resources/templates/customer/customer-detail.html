@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body">
+
+<nav th:replace="~{main-layout :: navigator}"></nav>
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+
+<main>
+    <form class="upsert-form" method="GET" th:action="@{customer/detail}">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label>Full Name</label>
+                </td>
+                <td>
+                    <span th:text="|: ${customer.firstName} ${customer.lastName}"|></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Birth Date</label>
+                </td>
+                <td>
+                    <span th:text="|: ${customer.birthDate}" |></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Gender</label>
+                </td>
+                <td>
+                    <span th:text="|: ${customer.gender}" |></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Phone</label>
+                </td>
+                <td>
+                    <span th:text="|: ${customer.phone}" |></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Address</label>
+                </td>
+                <td>
+                    <span th:text="|: ${customer.address}" |></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/customer}" class="blue-button submit-button">Back to Index</a>
+    </form>
+
+</main>
+
+<footer th:replace="~{main-layout :: footer}"></footer>
+</body>
+</html>

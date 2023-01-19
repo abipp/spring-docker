@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body">
+<nav th:replace="~{main-layout :: navigator}"></nav>
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+<main>
+    <div class="fail-container">
+        <p>Ada <span th:text="${dependencies}"></span> Buku yang tersambung dengan Author ini.</p>
+        <p>Anda tidak dapat menghapus Author ini karena tersambung dengan Buku.</p>
+    </div>
+    <a class="blue-button" th:href="@{/author/index}">back to index</a>
+</main>
+<footer th:replace="~{main-layout :: footer}"></footer>
+</body>
+</html>

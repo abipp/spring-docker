@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body">
+
+<nav th:replace="~{main-layout :: navigator}"></nav>
+
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+
+<main>
+    <form th:action="@{/book/upsert-book(category = ${category})}" method="post" th:object="${books}" class="upsert-form">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label>Code* :</label>
+                </td>
+                <td>
+                    <input type="text" name="code" th:field="*{code}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label> Title* :</label>
+                </td>
+                <td>
+                    <input type="text" name="title" th:field="*{title}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Category</label>
+                </td>
+                <td th:text="${category}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Author* :</label>
+                </td>
+                <td>
+                    <select th:field="*{author}">
+                        <option th:value=null>No Specific Author</option>
+                        <option th:each="dropdownValue : ${authors}"
+                                th:value="${dropdownValue.id}" th:text="${dropdownValue.fullName}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Release Date: </label>
+                </td>
+                <td>
+                    <input type="date" name="releaseDate" th:field="*{releaseDate}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Total Page: </label>
+                </td>
+                <td>
+                    <input type="text" name="totalPage" th:field="*{totalPage}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="textarea-label">Summary :</label>
+                </td>
+                <td>
+                    <textarea th:field="*{summary}"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="blue-button">Save</button>
+        <a th:href="@{/book/detail(category = ${category})}" class="blue-button create-button">Cancel</a>
+    </form>
+</main>
+
+
+<footer th:replace="~{main-layout :: footer}"></footer>
+
+</body>
+</html>

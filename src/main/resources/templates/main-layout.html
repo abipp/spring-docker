@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winterhold</title>
+    <link rel="icon" type="image/ico" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/resources/css/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/font-awesome.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/site.css}" />
+    <script th:src="@{/resources/js/jquery-3.6.0.js}"></script>
+</head>
+<body>
+
+<nav th:fragment="navigator">
+    <div class="company-logo">
+        <img th:src="@{/resources/image/logo.png}" alt="Winterhold">
+        <h1>
+            Trade of <span class="bold">winterhold</span>
+        </h1>
+    </div>
+
+    <a th:href="@{/}">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a th:href="@{/author}">
+        <i class="fas fa-user-tie">
+        </i>
+        <span>Author</span>
+    </a>
+    <a th:href="@{/book}" class="menu product">
+        <i class="fas fa-th"></i>
+        <span>Book</span>
+    </a>
+    <a th:href="@{/customer}">
+        <i class="fas fa-users"></i>
+        <span>Customers</span>
+    </a>
+    <a th:href="@{/loan}">
+        <i class="fas fa-receipt"></i>
+        <span>Loans</span>
+    </a>
+</nav>
+<header th:fragment="header(breadCrumbs)">
+    <div class="bread-crumbs">
+        <span th:text="${breadCrumbs}"></span>
+    </div>
+
+    <div class="user-wrapper">
+        <div class="user">
+            <span class="full-name" sec:authentication="name">Anonymous</span>
+        </div>
+        <div class="sign-out">
+            <form th:action="@{/logout}" method="POST">
+                <button type="submit"><i class="fas fa-sign-out-alt"></i></button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<footer th:fragment="footer">
+    Copyright &copy; 2021
+    <span class="author">Boby Widjaja</span>
+    All Rights Reserved
+</footer>
+</body>
+</html>

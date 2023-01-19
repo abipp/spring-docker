@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}">
+</head>
+<body class="main-body">
+<nav th:replace="~{main-layout :: navigator}"></nav>
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+<main>
+
+    <div class="upsert-form" th:object="${loans}">
+        <table>
+            <thead>
+                <th>Book</th>
+                <th>Customer</th>
+            </thead>
+            <tr>
+                <td>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><label>Title</label></td>
+                            <td th:text="|: ${loans.title}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Category</label></td>
+                            <td th:text="|: ${loans.categoryName}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Author</label></td>
+                            <td th:text="|: ${loans.authorFullName}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Floor</label></td>
+                            <td th:text="|: ${loans.floor}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Isle</label></td>
+                            <td th:text="|: ${loans.isle}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Bay</label></td>
+                            <td th:text="|: ${loans.bay}|"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><label>Membership Number</label></td>
+                            <td th:text="|: ${loans.customerNumber}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Full Name</label></td>
+                            <td th:text="|: ${loans.customerFullName}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Phone</label></td>
+                            <td th:text="|: ${loans.phone}|"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Membership Expired Date</label></td>
+                            <td th:text="|: ${loans.expiredDate}|"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <a th:href="@{/loan/index}" class="blue-button submit-button">Back To Index</a>
+    </div>
+
+
+
+</main>
+
+
+</body>
+</html>

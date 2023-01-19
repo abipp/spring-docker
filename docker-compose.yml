@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  mssql:
+      restart: always
+      container_name: mssql
+      image: mcr.microsoft.com/mssql/server:2019-latest
+      environment:
+        SA_PASSWORD: Indocyber123
+        ACCEPT_EULA: Y
+        MSSQL_PID: Express
+        MSSQL_DATABASE: Winterhold
+      ports:
+        - 1433:1433
+#      command: /bin/bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'Ind0cyber@' -Q 'CREATE DATABASE Winterhold'"
+
+  winterhold:
+     image: abiputra/winterhold-v1:latest
+     environment:
+       - spring.datasource.url=jdbc:sqlserver://mssql:1433;databaseName=Winterhold
+       - spring.datasource.username=sa
+       - spring.datasource.password=Indocyber123
+     depends_on:
+       - mssql
+     ports:
+       - 8080:8080
+     restart: always

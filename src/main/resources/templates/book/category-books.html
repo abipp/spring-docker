@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body" th:data-role="${#authentication.getAuthorities()}">
+<nav th:replace="~{main-layout :: navigator}"></nav>
+
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+
+
+<main>
+    <div class="grid-container">
+
+        <form th:action="@{/book/detail}" method="get" class="filter">
+            <input type="hidden" name="category" th:value="${category}">
+            <input type="text" name="title" placeholder="Book title.." th:value="${title}">
+            <input type="text" name="fullName" placeholder="Author.." th:value="${fullName}">
+            <button type="submit" class="blue-button">Search</button>
+        </form>
+
+        <a class="blue-button create-button" th:href="@{/book/upsert-book-form(category = ${category})}">
+            Add New <span th:text="${category}"></span> Book</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>is Borrowed</th>
+                    <th>Release Date</th>
+                    <th>Total Page</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td>
+                        <a th:href="@{/book/upsert-book-form(category = ${category}, id = ${book.id})}"
+                           class="blue-button update-button">Edit</a>
+                        <form th:action="@{/book/delete-book(category = ${category}, id = ${book.id})}" method="POST">
+                            <button type="submit" class="blue-button delete-button">Delete</button>
+                        </form>
+                    </td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.fullName}"></td>
+                    <td th:text="${book.isBorrowed}"></td>
+                    <td th:text="${book.releaseDate}"></td>
+                    <td th:text="${book.totalPage}"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="pagination">
+                            <div th:text="|Page ${page} of ${totalPage}|"></div>
+                            <div>
+                                <a      th:each="pageLoop : ${#numbers.sequence(1, (totalPage < 1) ? 1 : totalPage)}"
+                                        th:href="@{/book/index(page=${pageLoop}, category=${category}, title=${title}, fullName=${fullName})}"
+                                        th:text="${pageLoop}">
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{main-layout :: footer}"></footer>
+</body>
+</html>

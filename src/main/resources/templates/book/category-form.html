@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{main-layout :: head}"></head>
+<body class="main-body">
+
+<nav th:replace="~{main-layout :: navigator}"></nav>
+
+<header th:replace="~{main-layout :: header(${breadCrumbs})}"></header>
+
+<main>
+    <form method="post" th:object="${category}" class="upsert-form alternate-action" th:action="@{/book/upsert-category}" >
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <table th:attr="data-action=${type}">
+        <tbody>
+            <tr>
+                <td>
+                    <label>Category Name* :</label>
+                </td>
+                <td>
+                    <input type="text" name="id" th:field="*{id}" class="readonly-id">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label> Floor* :</label>
+                </td>
+                <td>
+                    <input type="text" name="floor" th:field="*{floor}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Isle* :</label>
+                </td>
+                <td>
+                    <input type="text" name="isle" th:field="*{isle}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Bay* :</label>
+                </td>
+                <td>
+                    <input type="text" name="bay" th:field="*{bay}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="blue-button" type="submit" th:text="${type} + ' Category'"></button>
+        <a th:href="@{/book}" class="blue-button create-button">Back to Index</a>
+    </form>
+</main>
+
+
+<footer th:replace="~{main-layout :: footer}"></footer>
+
+</body>
+</html>
