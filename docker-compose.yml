@@ -1,27 +1,27 @@
 version: "3.4"
 
 services:
-  mssql:
+  pgsql:
       restart: always
-      container_name: mssql
-      image: mcr.microsoft.com/mssql/server:2019-latest
+      container_name: pgsql
+      image: postgres:15-alpine
       environment:
-        SA_PASSWORD: Indocyber123
-        ACCEPT_EULA: Y
-        MSSQL_PID: Express
-        MSSQL_DATABASE: Winterhold
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=Winterhold
       ports:
-        - 1433:1433
+        - 5432:5432
 #      command: /bin/bash -c "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'Ind0cyber@' -Q 'CREATE DATABASE Winterhold'"
 
   winterhold:
-     image: abiputra/winterhold-v1:latest
+     image: abiputra/winterhold-app
+     container_name: winterhold-app
      environment:
-       - spring.datasource.url=jdbc:sqlserver://mssql:1433;databaseName=Winterhold
-       - spring.datasource.username=sa
-       - spring.datasource.password=Indocyber123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgsql:5432/Winterhold
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
      depends_on:
-       - mssql
+       - pgsql
      ports:
        - 8080:8080
      restart: always
